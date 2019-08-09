@@ -1,15 +1,23 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
+import constantsForSetup as cs
 from cmath import e,pi,sin,cos
 
-N=1
-M=8
-p=100
-fc=1e6
-fs=1e7
-c = 3e8
-d = 150
+N=cs.N
+M=cs.M
+p=cs.p
+fc=cs.fc
+fs=cs.fs
+c = cs.c
+
+#calculate phase difference vectors
+def calcPhaseDiffVectors(X, M):
+    phaseDiffVectors = np.zeros(M, dtype = complex)
+    for iter in range(M-1):
+        phaseDiffVectors[iter] = phiXY(X[iter, :], X[iter+1, :])
+    phaseDiffVectors[M-1] = phiXY(X[M-1, :], X[0, :])
+    return phaseDiffVectors
 
 #function to correlate two given phase difference vectors
 def correlatePhaseDiffVectors(vecX, vecY):
@@ -32,25 +40,19 @@ X = np.load('recieved_signal_data.npy')
 print("Recieved Signal X: ",X.shape)
 
 #calculate phase difference vectors
-calculatedPhaseDiffVector = np.zeros([nc2(M)], dtype=complex)
-calculatedPhaseDiffVectorIndex = 0
-for iter in range(M):
-    for iter2 in range(M-iter-1):
-        calculatedPhaseDiffVector[calculatedPhaseDiffVectorIndex] = phiXY(X[iter + iter2 + 1, :], X[iter, :])
-        calculatedPhaseDiffVectorIndex += 1
+calculatedPhaseDiffVector = calcPhaseDiffVectors(X, M)
 
 print("Shape of phase difference vectors : ", calculatedPhaseDiffVector.shape)
 #calculate correlation with the reference data
 correlationValues = np.zeros(phiR.shape[0])
-print("Shape of phase reference vectors : ", phiR[0, :].shape)
+print("Shape of phase reference vectors : ", phiR.shape)
 
 print(phiR.shape[0])
 for iter in range(phiR.shape[0]):
     correlationValues[iter] = correlatePhaseDiffVectors(calculatedPhaseDiffVector, phiR[iter, :])
-
 #plotting original DOAs for comparison with peaks
 fig, ax = plt.subplots(figsize=(10,4))
-doa = np.array([85])
+doa = cs.doaInDegrees
 print("Original Directions of Arrival (degrees): \n",doa)
 for k in range(len(doa)):
 	plt.axvline(x=doa[k],color='red',linestyle='--')

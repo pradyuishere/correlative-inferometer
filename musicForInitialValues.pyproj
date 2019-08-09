@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>e6b46fb4-8bf1-4a65-8e6c-643af958c123</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>musicForInitialValues.py</StartupFile>
+    <StartupFile>constantsForSetup.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -25,8 +25,7 @@
     <Compile Include="4_generate_phase_difference_vectors.py" />
     <Compile Include="2_simulate_recieved_signal.py" />
     <Compile Include="3_DOA_estimation_MUSIC.py" />
-    <Compile Include="5_DoA_estimation_using_correlation - Copy.py" />
-    <Compile Include="musicForInitialValues.py" />
+    <Compile Include="constantsForSetup.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="5_DoA_estimation_using_correlation.py" />

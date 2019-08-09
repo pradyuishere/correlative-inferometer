@@ -1,12 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import constantsForSetup as cs
 from cmath import e,pi,sin,cos
 
-N=1
-M=8
-p=100
-fc=1e6
-fs=1e7
+N = cs.N
+M = cs.M
+p = cs.p
+fc = cs.fc
+fs = cs.fs
 
 #Generating Source Signal : Nxp
 
